@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Category(models.Model):
     # This class defines a Category model, which will be used to categorize recipes
     name = models.CharField(max_length=255)  # A category will have a name field, which is a string
@@ -21,17 +20,18 @@ class Recipe(models.Model):
         # This method returns the name of the recipe when the object is printed
         return self.name
 
-    def calculate_difficulty(self):
+    @property
+    def difficulty(self):
         """Calculates difficulty based on cooking time and number of ingredients."""
-        
-        # Split the ingredients list by commas and count how many ingredients there are.
-        # Assumes the ingredients are separated by commas (e.g., "salt, pepper, chicken").
-        num_ingredients = len(self.ingredients.split(','))
+        # Split the ingredients list directly inside the property
+        ingredients_list = [ingredient.strip() for ingredient in self.ingredients.split(',')]
 
-        # Determine difficulty based on cooking time and number of ingredients
-        if self.cooking_time <= 20 and num_ingredients <= 5:
-            return "Easy"  # If the cooking time is 20 minutes or less and ingredients are 5 or fewer, it's easy
-        elif 21 <= self.cooking_time <= 45 and num_ingredients <= 10:
-            return "Medium"  # If cooking time is between 21 and 45 minutes and ingredients are 10 or fewer, it's medium
+        # Apply the same logic four difficulty levels
+        if self.cooking_time < 10 and len(ingredients_list) < 4:
+            return "Easy"  # Easy if cooking time < 10 minutes and fewer than 4 ingredients
+        elif self.cooking_time < 20 and len(ingredients_list) < 6:
+            return "Medium"  # Medium if cooking time < 20 minutes and fewer than 6 ingredients
+        elif self.cooking_time >= 20 and len(ingredients_list) < 6:
+            return "Intermediate"  # Intermediate if cooking time >= 20 minutes and fewer than 6 ingredients
         else:
-            return "Hard"  # If the cooking time is greater than 45 minutes or ingredients exceed 10, it's hard
+            return "Hard"  # Hard for all other cases
