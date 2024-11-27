@@ -6,7 +6,14 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'recipe_project.settings')
+    # Default to the development settings if no environment is specified
+    os.environ.setdefault('DJANGO_ENV', 'dev')
+    
+    # Dynamically set DJANGO_SETTINGS_MODULE based on the environment variable
+    environment = os.environ.get('DJANGO_ENV')
+    settings_module = f"config.settings.{environment}"
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', settings_module)
+    
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
