@@ -1,0 +1,135 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #ffffff;
+            /* Text color to contrast the background image */
+            background: url("{% static 'recipes/Images/welcome.png' %}") no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        header {
+            background-color: rgba(91, 105, 93, 0.8);
+            /* Semi-transparent dark green */
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .recipes-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 2rem;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            /* Light translucent background for readability */
+            border-radius: 10px;
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+
+        .recipe-card {
+            background-color: #FAF3E0;
+            /* Light beige for contrast */
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .recipe-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .recipe-card h3 {
+            margin: 1rem 0 0.5rem;
+            font-size: 1.25rem;
+            color: #333;
+        }
+
+        .recipe-card p {
+            margin: 0.5rem 0;
+            color: #555;
+        }
+
+        .recipe-card a {
+            display: inline-block;
+            margin: 1rem 0;
+            padding: 0.5rem 1rem;
+            color: white;
+            background-color: #123c18;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background-color 0.3s;
+        }
+
+        .recipe-card a:hover {
+            background-color: #0e6c26;
+        }
+
+        .back-home-button {
+            display: block;
+            margin: 2rem auto;
+            padding: 0.75rem 1.5rem;
+            text-align: center;
+            color: white;
+            background-color: #123c18;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+            width: fit-content;
+        }
+
+        .back-home-button:hover {
+            background-color: #0e6c26;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Recipe List</h1>
+    </header>
+    <div class="recipes-container">
+        {% for recipe in recipes %}
+        <div class="recipe-card">
+            <img src="{{ recipe.pic.url }}" alt="{{ recipe.name }}">
+            <h3><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h3>
+            <p>Cooking Time: {{ recipe.cooking_time }} mins</p>
+        </div>
+        {% endfor %}
+    </div>
+    <a href="{% url 'recipes:home' %}" class="back-home-button">Back</a>
+</body>
+
+</html>

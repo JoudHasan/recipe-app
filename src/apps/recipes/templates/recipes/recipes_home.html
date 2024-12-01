@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,33 +9,46 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
             margin: 0;
             padding: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            color: #ffffff;
+            background: url("{% static 'recipes/Images/welcome.png' %}") no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.3);
+            /* Semi-transparent black with more fading */
+            z-index: 1;
+        }
+
+        /* Place content above the overlay */
+        .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
         }
 
         header {
-            background-color: #08300e;
-            color: white;
+            background: none;
             text-align: center;
-            padding: 1.5rem;
+            padding: 2rem;
         }
 
         header h1 {
             margin: 0;
-            font-size: 2.5rem;
-        }
-
-        .container {
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .container h2 {
-            color: #333;
+            font-size: 3rem;
+            font-weight: bold;
         }
 
         .cta-button {
@@ -42,36 +56,45 @@
             background-color: #123c18;
             color: white;
             text-decoration: none;
-            padding: 0.75rem 1.5rem;
+            padding: 1rem 2rem;
             border-radius: 5px;
-            margin-top: 1rem;
-            font-size: 1rem;
+            margin-top: 2rem;
+            font-size: 1.2rem;
             transition: background-color 0.3s ease;
         }
 
         .cta-button:hover {
-            background-color: rgb(10, 60, 10);
+            background-color: #0a5015;
         }
 
         footer {
-            background-color: #333;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
             color: white;
             text-align: center;
-            padding: 1rem;
-            margin-top: auto;
+            padding: 1rem 0;
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <h1>Welcome to Recipe App</h1>
-    </header>
-    <div class="container">
-        <h2>Discover, Create, and Share Amazing Recipes!</h2>
-        <p>Start exploring a wide range of recipes and cooking tips. Whether you're a beginner or a master chef!</p>
-        <a href="#" class="cta-button">Get Started</a>
+    <!-- Background overlay -->
+    <div class="overlay"></div>
+
+    <!-- Main content -->
+    <div class="content">
+        <header>
+            <h1>Welcome to Recipe App</h1>
+        </header>
+        <div>
+            <h2>Discover, Create, and Share Amazing Recipes!</h2>
+            <a href="{% url 'recipes:recipe_list' %}" class="cta-button">View Recipes</a>
+        </div>
     </div>
+
     <footer>
         <p>&copy; 2024 Recipe App. All rights reserved.</p>
     </footer>
