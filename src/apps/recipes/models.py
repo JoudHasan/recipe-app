@@ -4,7 +4,7 @@ from django.urls import reverse
 
 class Category(models.Model):
     # This class defines a Category model, which will be used to categorize recipes
-    name = models.CharField(max_length=255)  # A category will have a name field, which is a string
+    name = models.CharField(max_length=255, unique=True)  # Ensure the name is unique
 
     def __str__(self):
         # This method returns the name of the category when the object is printed

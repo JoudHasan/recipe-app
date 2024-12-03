@@ -1,0 +1,205 @@
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  color: #ffffff;
+  background: url("../Images/welcome.png") no-repeat center center fixed;
+  background-size: cover;
+  position: relative;
+}
+
+/* Header Styles */
+header {
+  background: none;
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+}
+
+header nav {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.nav-link {
+  margin: 0 1rem;
+  text-decoration: none;
+  font-size: 1rem;
+  color: white;
+  background-color: #123c18;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.nav-link:hover {
+  background-color: #0e6c26;
+}
+
+/* Footer Styles */
+footer {
+  position: relative; /* Footer sits at the bottom */
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  text-align: center;
+  padding: 1rem 0;
+  margin-top: auto; /* Pushes footer to the bottom of the page if content is short */
+  z-index: 10;
+}
+
+/* Home Page Styles */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: #123c18;
+  color: white;
+  text-decoration: none;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  margin-top: 2rem;
+  font-size: 1.2rem;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #0a5015;
+}
+
+/* Recipe List Page Styles */
+.recipes-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem;
+  justify-content: center;
+  margin: 2rem auto;
+  max-width: 1200px;
+  position: relative; /* Ensure it sits on the background image */
+  z-index: 2; /* Keep it above the background */
+}
+
+.recipe-card {
+  background-color: rgba(255, 255, 255, 0.2); /* Transparent background */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle border for visibility */
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  width: 250px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  backdrop-filter: blur(5px); /* Adds frosted glass effect */
+}
+
+.recipe-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+}
+
+.recipe-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Divider under the image */
+}
+
+.recipe-card h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.25rem;
+  color: white; /* Ensure text is readable on the background */
+}
+
+.recipe-card p {
+  margin: 0.5rem 0;
+  color: #ddd; /* Light text color for contrast */
+}
+
+.recipe-card a {
+  display: inline-block;
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  color: white;
+  background-color: #123c18;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  transition: background-color 0.3s;
+}
+
+.recipe-card a:hover {
+  background-color: #0e6c26;
+}
+
+/* Recipe Details Page Styles */
+.recipe-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-container img {
+  width: 250px;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+}
+
+.recipe-container h2 {
+  margin: 1rem 0;
+  font-size: 1.75rem;
+  color: #123c18;
+  text-align: center;
+}
+
+.recipe-container p {
+  margin: 0.5rem 0;
+  color: #333;
+  line-height: 1.6;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  color: white;
+  background-color: #123c18;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.back-link:hover {
+  background-color: #0e6c26;
+}

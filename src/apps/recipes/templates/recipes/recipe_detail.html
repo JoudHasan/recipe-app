@@ -6,91 +6,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ recipe.name }}</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            color: #ffffff;
-            /* Text color to contrast the background */
-            background: url("{% static 'recipes/Images/welcome.png' %}") no-repeat center center fixed;
-            background-size: cover;
-            position: relative;
-        }
-
-        header {
-            background-color: rgba(91, 105, 93, 0.8);
-            /* Semi-transparent dark green */
-            color: white;
-            text-align: center;
-            padding: 1.5rem;
-        }
-
-        header h1 {
-            margin: 0;
-            font-size: 2rem;
-        }
-
-        .recipe-container {
-            max-width: 800px;
-            margin: 2rem auto;
-            background-color: rgba(255, 255, 255, 0.9);
-            /* Light translucent background for readability */
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .recipe-container img {
-            width: 300px;
-            /* Set a consistent width */
-            height: 300px;
-            /* Set a consistent height */
-            object-fit: cover;
-            /* Ensures the image covers the set dimensions without distortion */
-            border-radius: 10px;
-            display: block;
-            margin: 0 auto;
-            /* Center the image horizontally */
-        }
-
-        .recipe-container h2 {
-            margin: 1rem 0;
-            font-size: 2rem;
-            color: #123c18;
-        }
-
-        .recipe-container p {
-            margin: 0.5rem 0;
-            color: #333;
-            /* Slightly darker text for better contrast */
-            line-height: 1.6;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 1rem;
-            padding: 0.5rem 1rem;
-            color: white;
-            background-color: #123c18;
-            text-decoration: none;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-
-        .back-link:hover {
-            background-color: #0e6c26;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'recipes/css/styles.css' %}">
 </head>
 
 <body>
     <header>
-        <h1>{{ recipe.name }}</h1>
+        <h1>Recipe App</h1>
+        <nav>
+            <a href="{% url 'recipes:home' %}" class="nav-link">Home</a>
+            <a href="{% url 'recipes:recipe_list' %}" class="nav-link">Recipes</a>
+        </nav>
     </header>
+
     <div class="recipe-container">
         <img src="{{ recipe.pic.url }}" alt="{{ recipe.name }}">
         <h2>{{ recipe.name }}</h2>
@@ -100,6 +27,10 @@
         <p><strong>Categories:</strong> {{ recipe.categories.all|join:", " }}</p>
         <a href="{% url 'recipes:recipe_list' %}" class="back-link">Back to Recipes</a>
     </div>
+
+    <footer>
+        <p>&copy; 2024 Recipe App. All rights reserved.</p>
+    </footer>
 </body>
 
 </html>
