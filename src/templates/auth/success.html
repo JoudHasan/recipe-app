@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logout Successful - Recipe App</title>
+    <link rel="stylesheet" href="{% static 'recipes/css/styles.css' %}">
+</head>
+
+<body>
+    <header>
+        <h1>Recipe App</h1>
+    </header>
+
+    <main>
+        <div class="overlay"></div>
+        <div class="content">
+            <div class="logout-container">
+                <h2>Logout Successful</h2>
+                <p>You have successfully logged out. We hope to see you again soon!</p>
+                <div class="logout-actions">
+                    <a href="{% url 'login' %}" class="cta-button">Login Again</a>
+                    <a href="{% url 'recipes:home' %}" class="cta-button">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Recipe App. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

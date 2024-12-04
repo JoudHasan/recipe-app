@@ -18,13 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from config.views import login_view, logout_view  # Import login and logout views
 
-app_name = 'recipes'
-
+# Global URL configuration
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('apps.recipes.urls', namespace='recipes')),  
-    
+    path('admin/', admin.site.urls),  # Django admin panel
+    path('', include('apps.recipes.urls', namespace='recipes')),  # Include recipes app URLs
+    path('login/', login_view, name='login'),  # Login view
+    path('logout/', logout_view, name='logout'),  # Logout view
 ]
-
+# Serve media files in development
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
