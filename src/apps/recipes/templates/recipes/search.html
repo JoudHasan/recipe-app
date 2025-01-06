@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Recipes</title>
+    <link rel="stylesheet" href="{% static 'recipes/css/styles.css' %}">
+</head>
+
+<body>
+    <header>
+        <h1>Search Recipes</h1>
+        <nav>
+            <a href="{% url 'recipes:home' %}" class="nav-link">Home</a>
+            <a href="{% url 'recipes:recipe_list' %}" class="nav-link">Recipes List</a>
+            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+        </nav>
+    </header>
+
+    <!-- Search Form -->
+    <div class="search-container">
+        <h2>Find Your Recipe</h2>
+        <form method="GET">
+            {{ form.as_p }}
+            <button type="submit" class="btn-search">Search</button>
+            <a href="{% url 'recipes:recipe_list' %}" class="btn-show-all">Show All</a>
+        </form>
+    </div>
+
+    <!-- Results -->
+    <div class="result-container">
+        {% if recipes %}
+        <h2>Search Results:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Cooking Time (mins)</th>
+                    <th>Difficulty</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for recipe in recipes %}
+                <tr>
+                    <td><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></td>
+                    <td>{{ recipe.cooking_time }}</td>
+                    <td>{{ recipe.difficulty }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No results found.</p>
+        {% endif %}
+    </div>
+
+    <!-- Chart -->
+    <div class="chart-container">
+        {% if chart %}
+        <h2>Cooking Time Chart</h2>
+        <img src="data:image/png;base64, {{ chart|safe }}">
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Recipe App. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

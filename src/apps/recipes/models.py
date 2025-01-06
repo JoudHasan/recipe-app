@@ -17,7 +17,7 @@ class Recipe(models.Model):
     cooking_time = models.PositiveIntegerField(help_text="Time in minutes")  # The cooking time (in minutes)
     ingredients = models.TextField(help_text="List of ingredients")  # A text field to list ingredients
     categories = models.ManyToManyField(Category, related_name="recipes")  # A recipe can belong to multiple categories
-    pic = models.ImageField(upload_to="recipes", default="recipes/no_picture.jpg", blank=True)
+    pic = models.ImageField(upload_to="recipes", default="recipes/no_picture.jpg", blank=True)  # Image upload
 
     def __str__(self):
         # This method returns the name of the recipe when the object is printed
@@ -29,7 +29,7 @@ class Recipe(models.Model):
         # Split the ingredients list directly inside the property
         ingredients_list = [ingredient.strip() for ingredient in self.ingredients.split(',')]
 
-        # Apply the same logic four difficulty levels
+        # Apply logic for four difficulty levels
         if self.cooking_time < 10 and len(ingredients_list) < 4:
             return "Easy"  # Easy if cooking time < 10 minutes and fewer than 4 ingredients
         elif self.cooking_time < 20 and len(ingredients_list) < 6:

@@ -14,11 +14,16 @@
         <h1>Recipe App</h1>
         <nav>
             <a href="{% url 'recipes:home' %}" class="nav-link">Home</a>
-            <!-- Logout button -->
             <a href="{% url 'logout' %}" class="nav-link">Logout</a>
         </nav>
     </header>
 
+    <!-- Search Button -->
+    <div class="search-btn-container">
+        <a href="{% url 'recipes:search' %}" class="btn-search-page">Search Recipes</a>
+    </div>
+
+    <!-- Recipe Cards -->
     <div class="recipes-container">
         {% for recipe in recipes %}
         <div class="recipe-card">
