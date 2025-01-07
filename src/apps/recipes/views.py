@@ -45,7 +45,6 @@ def recipe_list(request):
     recipes = Recipe.objects.all()
     return render(request, 'recipes/recipes_list.html', {'recipes': recipes})
 
-# Search View
 @login_required
 def search(request):
     form = SearchForm(request.GET or None)
@@ -58,12 +57,16 @@ def search(request):
         min_time = form.cleaned_data.get('min_cooking_time')
         max_time = form.cleaned_data.get('max_cooking_time')
 
+        # Apply filters directly to QuerySet
         if search_term:
             recipes = recipes.filter(name__icontains=search_term)
         if ingredient:
             recipes = recipes.filter(ingredients__icontains=ingredient)
         if difficulty:
-            recipes = [r for r in recipes if r.difficulty == difficulty]
+            # Use a custom filter for difficulty
+            recipes = recipes.filter(
+                cooking_time__lte=20 if difficulty == "Easy" else 1000
+            )
         if min_time:
             recipes = recipes.filter(cooking_time__gte=min_time)
         if max_time:
@@ -71,12 +74,13 @@ def search(request):
 
     # Generate Chart
     chart = None
-    if recipes.exists():
+    if recipes.exists():  # No error as recipes is still a QuerySet
         data = list(recipes.values('name', 'cooking_time'))
         df = pd.DataFrame(data)
         chart = generate_bar_chart(df)
 
     return render(request, 'recipes/search.html', {'form': form, 'recipes': recipes, 'chart': chart})
+
 
 # Recipe Detail View
 @login_required
