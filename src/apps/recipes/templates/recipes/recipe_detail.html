@@ -13,10 +13,10 @@
     <header>
         <h1>Recipe App</h1>
         <nav>
-            <a href="{% url 'recipes:home' %}" class="nav-link">Home</a>
             <a href="{% url 'recipes:recipe_list' %}" class="nav-link">Recipes</a>
-            <!-- Logout button -->
-            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+            <div class="logout-btn-container" style="position: absolute; top: 10px; right: 10px;">
+                <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+            </div>
         </nav>
     </header>
 

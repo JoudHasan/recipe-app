@@ -1,32 +1,22 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from apps.recipes.models import Recipe
-from .forms import SearchForm
+from .forms import SearchForm, RecipeForm
 import pandas as pd
 import matplotlib
-matplotlib.use('Agg')  # Use non-GUI backend for Matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import io, base64
 
-## Generate Bar Chart
+# Chart Generation Functions
 def generate_bar_chart(data):
-    plt.figure(figsize=(10, 6))  # Adjust chart size for better readability
-
-    # Generate bar chart and capture the axes
+    plt.figure(figsize=(10, 6))
     ax = data.plot(kind='bar', x='name', y='cooking_time', legend=True)
-
-    # Rotate x-axis labels to prevent text cut-off
     ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha='right')
-
-    # Set title and labels
     plt.title('Cooking Time Comparison')
     plt.xlabel('Recipes')
     plt.ylabel('Cooking Time (minutes)')
-
-    # Adjust layout to fit everything properly
     plt.tight_layout()
-
-    # Save chart as base64 image
     buffer = io.BytesIO()
     plt.savefig(buffer, format='png')
     buffer.seek(0)
@@ -34,12 +24,35 @@ def generate_bar_chart(data):
     buffer.close()
     return chart
 
+def generate_line_chart(data):
+    plt.figure(figsize=(10, 6))
+    data.plot(kind='line', x='name', y='cooking_time', marker='o', legend=False)
+    plt.title('Cooking Time Comparison (Line)')
+    plt.xlabel('Recipe')
+    plt.ylabel('Cooking Time (minutes)')
+    plt.tight_layout()
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    chart = base64.b64encode(buffer.getvalue()).decode()
+    buffer.close()
+    return chart
 
-# Home View
+def generate_pie_chart(data):
+    plt.figure(figsize=(8, 8))
+    plt.pie(data['cooking_time'], labels=data['name'], autopct='%1.1f%%', startangle=140)
+    plt.title('Cooking Time Distribution (Pie)')
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    chart = base64.b64encode(buffer.getvalue()).decode()
+    buffer.close()
+    return chart
+
+# Views
 def home(request):
     return render(request, 'recipes/recipes_home.html')
 
-# Recipe List View (with navigation to search)
 @login_required
 def recipe_list(request):
     recipes = Recipe.objects.all()
@@ -57,33 +70,46 @@ def search(request):
         min_time = form.cleaned_data.get('min_cooking_time')
         max_time = form.cleaned_data.get('max_cooking_time')
 
-        # Apply filters directly to QuerySet
         if search_term:
             recipes = recipes.filter(name__icontains=search_term)
         if ingredient:
             recipes = recipes.filter(ingredients__icontains=ingredient)
-        if difficulty:
-            # Use a custom filter for difficulty
-            recipes = recipes.filter(
-                cooking_time__lte=20 if difficulty == "Easy" else 1000
-            )
         if min_time:
             recipes = recipes.filter(cooking_time__gte=min_time)
         if max_time:
             recipes = recipes.filter(cooking_time__lte=max_time)
+        if difficulty:
+            recipes = [recipe for recipe in recipes if recipe.difficulty == difficulty]
 
-    # Generate Chart
-    chart = None
-    if recipes.exists():  # No error as recipes is still a QuerySet
-        data = list(recipes.values('name', 'cooking_time'))
+    bar_chart = line_chart = pie_chart = None
+    if recipes:
+        data = [{'name': r.name, 'cooking_time': r.cooking_time} for r in recipes]
         df = pd.DataFrame(data)
-        chart = generate_bar_chart(df)
+        if not df.empty:
+            bar_chart = generate_bar_chart(df)
+            line_chart = generate_line_chart(df)
+            pie_chart = generate_pie_chart(df)
 
-    return render(request, 'recipes/search.html', {'form': form, 'recipes': recipes, 'chart': chart})
+    return render(request, 'recipes/search.html', {
+        'form': form,
+        'recipes': recipes,
+        'bar_chart': bar_chart,
+        'line_chart': line_chart,
+        'pie_chart': pie_chart,
+    })
 
-
-# Recipe Detail View
 @login_required
 def recipe_detail(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
     return render(request, 'recipes/recipe_detail.html', {'recipe': recipe})
+
+@login_required
+def add_recipe(request):
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('recipes:recipe_list')
+    else:
+        form = RecipeForm()
+    return render(request, 'recipes/add_recipe.html', {'form': form})

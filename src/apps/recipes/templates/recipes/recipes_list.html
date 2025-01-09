@@ -13,23 +13,29 @@
     <header>
         <h1>Recipe App</h1>
         <nav>
-            <a href="{% url 'recipes:home' %}" class="nav-link">Home</a>
-            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+            <!-- Search Button in Navigation -->
+            <a href="{% url 'recipes:search' %}" class="nav-link">Search Recipes</a>
         </nav>
-    </header>
 
-    <!-- Search Button -->
-    <div class="search-btn-container">
-        <a href="{% url 'recipes:search' %}" class="btn-search-page">Search Recipes</a>
-    </div>
+        <div class="logout-btn-container" style="position: absolute; top: 10px; right: 10px;">
+            <!-- Add Recipe Button -->
+            <a href="{% url 'recipes:add_recipe' %}" class="nav-link">Add Recipe</a>
+            <!-- logout Button -->
+            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+
+        </div>
+
+    </header>
 
     <!-- Recipe Cards -->
     <div class="recipes-container">
+
         {% for recipe in recipes %}
         <div class="recipe-card">
             <img src="{{ recipe.pic.url }}" alt="{{ recipe.name }}">
-            <h3><a href="{{ recipe.get_absolute_url }}">{{ recipe.name }}</a></h3>
+            <h3>{{ recipe.name }}</h3>
             <p>Cooking Time: {{ recipe.cooking_time }} mins</p>
+            <a href="{{ recipe.get_absolute_url }}" class="btn-details">View Details</a>
         </div>
         {% endfor %}
     </div>

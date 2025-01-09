@@ -13,9 +13,10 @@
     <header>
         <h1>Search Recipes</h1>
         <nav>
-            <a href="{% url 'recipes:home' %}" class="nav-link">Home</a>
             <a href="{% url 'recipes:recipe_list' %}" class="nav-link">Recipes List</a>
-            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+            <div class="logout-btn-container" style="position: absolute; top: 10px; right: 10px;">
+                <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+            </div>
         </nav>
     </header>
 
@@ -58,11 +59,21 @@
 
     <!-- Chart -->
     <div class="chart-container">
-        {% if chart %}
-        <h2>Cooking Time Chart</h2>
-        <img src="data:image/png;base64, {{ chart|safe }}">
+        {% if bar_chart %}
+        <h2>Cooking Time Chart (Bar)</h2>
+        <img src="data:image/png;base64, {{ bar_chart|safe }}" alt="Bar Chart">
+        {% endif %}
+        {% if line_chart %}
+        <h2>Cooking Time Chart (Line)</h2>
+        <img src="data:image/png;base64, {{ line_chart|safe }}" alt="Line Chart">
+        {% endif %}
+        {% if pie_chart %}
+        <h2>Cooking Time Distribution (Pie)</h2>
+        <img src="data:image/png;base64, {{ pie_chart|safe }}" alt="Pie Chart">
         {% endif %}
     </div>
+
+
 
     <footer>
         <p>&copy; 2024 Recipe App. All rights reserved.</p>

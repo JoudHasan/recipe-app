@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Recipe</title>
+    <link rel="stylesheet" href="{% static 'recipes/css/styles.css' %}">
+</head>
+
+<body>
+    <header>
+        <h1>Add Recipe</h1>
+        <nav>
+            <a href="{% url 'recipes:recipe_list' %}" class="nav-link">Recipes</a>
+
+        </nav>
+        <div class="logout-btn-container" style="position: absolute; top: 10px; right: 10px;">
+            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+        </div>
+    </header>
+
+    <div class="recipe-container">
+        <h2>Add a New Recipe</h2>
+        <form method="POST" enctype="multipart/form-data" class="form-container">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="cta-button">Add Recipe</button>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Recipe App. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

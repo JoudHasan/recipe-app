@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, TextInput, NumberInput, FileInput
+from django.forms import ModelForm
 from .models import Recipe
 
 class SearchForm(forms.Form):
@@ -20,7 +20,7 @@ class SearchForm(forms.Form):
         })
     )
     difficulty = forms.ChoiceField(
-        choices=[('', 'Any Difficulty'), ('Easy', 'Easy'), ('Medium', 'Medium'), ('Intermediate', 'Intermediate'), ('Hard', 'Hard')],
+        choices=[('', 'Any Difficulty'), ('Easy', 'Easy'), ('Medium', 'Medium'), ('Hard', 'Hard')],
         required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
     )

@@ -348,3 +348,102 @@ footer {
   background-color: #218838;
   transform: scale(1.1);
 }
+/* Add Recipe Page Styles */
+.recipe-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.recipe-container h2 {
+  margin-bottom: 1rem;
+  font-size: 1.75rem;
+  color: white;
+}
+
+/* Add Recipe Container */
+.recipe-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5); /* Strong shadow for modern look */
+  backdrop-filter: blur(10px); /* Blurs the background behind the form */
+  text-align: center;
+}
+
+/* Title Styling */
+.recipe-container h2 {
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7); /* Makes text more readable */
+}
+
+/* Form Styling */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-container input,
+.form-container select,
+.form-container textarea {
+  width: 100%;
+  padding: 0.9rem;
+  border: none; /* Cleaner look without borders */
+  border-radius: 10px;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.15
+  ); /* Light, translucent input background */
+  color: white;
+  font-size: 1rem;
+  transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.form-container input:focus,
+.form-container select:focus,
+.form-container textarea:focus {
+  outline: none;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.25
+  ); /* Slightly lighter background on focus */
+  transform: scale(1.02); /* Subtle zoom effect for focus */
+}
+
+/* Submit Button Styling */
+.cta-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #28a745; /* Vibrant green for call-to-action */
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s;
+}
+
+.cta-button:hover {
+  background-color: #218838; /* Slightly darker green on hover */
+  transform: scale(1.05); /* Subtle zoom effect on hover */
+}
+
+/* Add subtle animations */
+.form-container input,
+.form-container textarea,
+.cta-button {
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
